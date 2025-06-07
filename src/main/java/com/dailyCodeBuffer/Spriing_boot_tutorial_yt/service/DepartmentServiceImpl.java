@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService{
@@ -18,13 +19,17 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    public List<Department> fetchDepartmentList(){
-        return departmentRepository.findAll();
+    //Changed for exception handling
+    public Optional<List<Department>> fetchDepartmentList(){
+        List<Department> departments = departmentRepository.findAll();
+        return departments.isEmpty()?Optional.empty():Optional.of(departments);
     }
 
     @Override
-    public Department fetchDepartmentById(Long departmentId){
-        return departmentRepository.findById(departmentId).get();
+    public Optional<Department> fetchDepartmentById(Long departmentId){
+        //return departmentRepository.findById(departmentId).get();
+        Optional<Department> department = departmentRepository.findById(departmentId);
+        return department.isEmpty()?Optional.empty():Optional.of(department.get());
     }
 
     @Override

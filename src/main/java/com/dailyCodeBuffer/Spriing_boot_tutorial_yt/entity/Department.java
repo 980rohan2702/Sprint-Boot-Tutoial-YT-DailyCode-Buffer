@@ -4,15 +4,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 @Entity //so that this entity can interact with the db
+@Data //has all imp annotation for getters,setters,default  Constructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long departmentId;
+
+    @NotBlank(message = "Please add Department Name")
     private String departmentName;
+
     private String departmentAddress;
     private String departmentCode;
+
+    //Used when we did not use lombok
+    /*
 
     public Long getDepartmentId() {
         return departmentId;
@@ -65,4 +79,6 @@ public class Department {
                 ", departmentCode='" + departmentCode + '\'' +
                 '}';
     }
+
+     */
 }
